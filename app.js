@@ -4,6 +4,7 @@
 
 var allProducts = [];
 console.log('is this working');
+
 // create a Constructor function and Instances
 
 function Products (name, id, filepath, timesShown, votes) {
@@ -42,6 +43,11 @@ function Products (name, id, filepath, timesShown, votes) {
        var wine = new Products('Big Dribble Wine Glass', 'wineGlass', './images/wine-glass.jpg');
    } 
 
+// var imageDisplay = document.getElementById('imageDisplay');
+// var src = imageDisplay.getAttribute('src');
+
+// shows the value of image for the element with id="imageDisplay"
+// alert(image); 
 //   create functions for tracking Display & Voting while on the page
 //   only want to display 3 images at any given moment
 //   begin voting count at zero (0)
@@ -95,9 +101,12 @@ displayOptions: function()  {
     this.display2.innerText = products2.name;
     this.display3.innerText = products3.name;
 
-    this.display1.id = products1.id;
+    this.display1.id = products1.id; 
+    this.display1.src = products1.filepath;
     this.display2.id = products2.id;
+    this.display2.src = products2.filepath;
     this.display3.id = products3.id;
+    this.display3.src = products3.filepath;
 
 },
 

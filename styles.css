@@ -1,0 +1,26 @@
+#headers {
+    font-family: 'Anton', sans-serif;
+    color: darkblue;
+    text-align: center;
+
+}
+h1 {
+    font-size: 50px;
+    background-color: rgb(95, 174, 87);
+}
+
+h2 {
+    font-size: 30px;
+    background-color: rgb(146, 209, 139);
+}
+
+div {
+    font-family: 'PT Sans Narrow', sans-serif;
+    color: rgb(71, 113, 134);
+}
+
+p {
+    text-align: center;
+}
+
+
