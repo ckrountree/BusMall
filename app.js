@@ -3,7 +3,7 @@
 // create an array for all Productss to be shown to Focus Group
 
 var allProducts = [];
-
+console.log('is this working');
 // create a Constructor function and Instances
 
 function Products (name, id, filepath, timesShown, votes) {
@@ -13,13 +13,13 @@ function Products (name, id, filepath, timesShown, votes) {
     this.timesShown = timesShown;
     this.votes = votes;
 
-    allProductss.push(this);
+    allProducts.push(this);
 
 }
 
 //   create new objects with name, id, and filepath
 
-   function instantiateProductss() {
+   function instantiateProducts() {
        var bag = new Products('R2-D2 Travel Case', 'r2d2-case', './images/bag.jpg' );
        var banana = new Products('Banana Slicer', 'banana-slicer', './images/banana.jpg');
        var tpHolder = new Products('iPad Toilet Paper Holder', 'tpHolder', './images/bathroom.jpg');
@@ -50,7 +50,7 @@ var tracker = {
     display1: document.getElementsByClassName('display1') [0],
     display2: document.getElementsByClassName('display2') [0],
     display3: document.getElementsByClassName('display3')[0],
-    imageDisplay: document.getElementsById('imageDisplay'),
+    imageDisplay: document.getElementById('imageDisplay'),
     votes: 0,
 
 //   create a function to select my random image
@@ -60,6 +60,8 @@ var tracker = {
     },
 
     getIndices: function( array )  {
+
+//  selectedIndices array is NaN, so use '.length' to create one
         var selectedIndices = [];
         while(selectedIndices.length < 3)  {
             var item = this.randomIndex( array );
@@ -74,11 +76,66 @@ var tracker = {
     console.log(selectedIndices);
     return selectedIndices;
 
+},
+
+displayOptions: function()  {
+    console.log('hello');
+// get 3 random product images
+    var randomProducts = this.getIndices( allProducts );
+    var index1 = randomProducts[0];
+    var index2 = randomProducts[1];
+    var index3 = randomProducts[2];
+        
+    var products1 = allProducts[index1];
+    var products2 = allProducts[index2];
+    var products3 = allProducts[index3];
+
+// append to the DOM
+    this.display1.innerText = products1.name;
+    this.display2.innerText = products2.name;
+    this.display3.innerText = products3.name;
+
+    this.display1.id = products1.id;
+    this.display2.id = products2.id;
+    this.display3.id = products3.id;
+
+},
+
+ tallyVote: function (id) {
+     this.votes += 1;
+
+//  run a 'for each' loop and show results
+    allProducts.forEach(function runEach ( product ) {
+        if (product.id === id) {
+            product.votes += 1;
+        }
+    });
+
+    if (this.votes > 25) {
+        this.showResults();
+    }
+ },
+
+ showResults: function () {
+        this.imageDisplay.removeEventListener('click', voteHandler);
+        console.table( allProducts );
+ }
+
 }
 
-// displayOptions: function()  {
+//   add an Event handler
 
-// }
+tracker.imageDisplay.addEventListener('click', voteHandler);
+function voteHandler()  {
+    if (event.target.id !== 'display') {
+        tracker.tallyVote(event.tracker.id);
+        tracker.displayOptions();
+    }
 }
 
+//  initialize app / call 
+
+instantiateProducts();
+tracker.displayOptions();
+console.log( tracker );
 
