@@ -1,18 +1,22 @@
 'use strict';
+console.log(Chart);
 
 // create an array for all Productss to be shown to Focus Group
 
 var allProducts = [];
 console.log('is this working');
+// var selectedIndices = [];
+var prevThree = [];
 
 // create a Constructor function and Instances
 
-function Products (name, id, filepath, timesShown, votes) {
+function Products (name, id, filepath) {
     this.name = name;
     this.id = id;
     this.filepath = filepath;
-    this.timesShown = timesShown;
-    this.votes = votes;
+    this.timesShown = 0;
+    this.timesClick = 0;
+    this.votes = 0;
 
     allProducts.push(this);
 
@@ -68,24 +72,32 @@ var tracker = {
     getIndices: function( array )  {
 
 //  selectedIndices array is NaN, so use '.length' to create one
+//  declare avariable set to the first array to  ensure that same-images do not appear on next sequential page
         var selectedIndices = [];
         while(selectedIndices.length < 3)  {
             var item = this.randomIndex( array );
+            console.log('while loop working', item);
+            
 
 //   using indexOf, run loop to make sure that same image doesn't show up twice in one round of display (-1 means image already used)
 
-        if ( selectedIndices.indexOf ( item )  === -1) {
-            selectedIndices.push( item );
+            if ( selectedIndices.indexOf ( item )  === -1 && prevThree.indexOf( item ) === -1) {
+                console.log('inside of if block', item);
+                selectedIndices.push( item );
+                prevThree.push( item );
         }
+//   using indexOf, run loop to make sure that same image doesn't show up in next sequential page
 
     }
-    console.log(selectedIndices);
+    prevThree = selectedIndices;
+    console.log('selected indices' + selectedIndices);
+    console.log('previous 3' + prevThree);
     return selectedIndices;
 
 },
 
 displayOptions: function()  {
-    console.log('hello');
+    console.log('you\'re getting 3 random images');
 // get 3 random product images
     var randomProducts = this.getIndices( allProducts );
     var index1 = randomProducts[0];
@@ -107,6 +119,7 @@ displayOptions: function()  {
     this.display2.src = products2.filepath;
     this.display3.id = products3.id;
     this.display3.src = products3.filepath;
+    
 
 },
 
@@ -120,14 +133,17 @@ displayOptions: function()  {
         }
     });
 
-    if (this.votes > 25) {
+    if (this.votes > 5) {
         this.showResults();
     }
  },
 
+//   show results after user selects (clicks) 25 items
  showResults: function () {
         this.imageDisplay.removeEventListener('click', voteHandler);
         console.table( allProducts );
+
+        
  }
 
 }
@@ -136,11 +152,12 @@ displayOptions: function()  {
 
 tracker.imageDisplay.addEventListener('click', voteHandler);
 function voteHandler()  {
-    if (event.target.id !== 'display') {
-        tracker.tallyVote(event.tracker.id);
+    if (event.target.id) {
+        tracker.tallyVote();
         tracker.displayOptions();
-    }
+};
 }
+
 
 //  initialize app / call 
 
