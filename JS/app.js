@@ -2,14 +2,12 @@
 console.log(Chart);
 
 // create an array for all Productss to be shown to Focus Group
-
 var allProducts = [];
 console.log('is this working');
 // var selectedIndices = [];
 var prevThree = [];
 
 // create a Constructor function and Instances
-
 function Products(name, id, filepath) {
     this.name = name;
     this.id = id;
@@ -22,7 +20,6 @@ function Products(name, id, filepath) {
 }
 
 //   create new objects with name, id, and filepath
-
 function instantiateProducts() {
     var bag = new Products('R2-D2 Travel Case', 'r2d2-case', './images/bag.jpg');
     var banana = new Products('Banana Slicer', 'banana-slicer', './images/banana.jpg');
@@ -62,33 +59,31 @@ var tracker = {
     imageDisplay: document.getElementById('imageDisplay'),
     votes: 0,
 
-    //   create a function to select my random image
-
+//   create a function to select my random image
     randomIndex: function (array) {
         return Math.floor(Math.random() * array.length);
     },
 
     getIndices: function (array) {
 
-        //  selectedIndices array is NaN, so use '.length' to create one
-        //  declare avariable set to the first array to  ensure that same-images do not appear on next sequential page
+//  selectedIndices array is NaN, so use '.length' to create one
+//  declare avariable set to the first array to  ensure that same-images do not appear on next sequential page
         var selectedIndices = [];
         while (selectedIndices.length < 3) {
             var item = this.randomIndex(array);
             console.log('while loop working', item);
 
 
-            //   using indexOf, run loop to make sure that same image doesn't show up twice in one round of display (-1 means image already used)
-
+//   make sure that same image doesn't show up more than once in one round of display (-1 means image already used)
             if (selectedIndices.indexOf(item) === -1 && prevThree.indexOf(item) === -1) {
                 console.log('inside of if block', item);
                 selectedIndices.push(item);
                 prevThree.push(item);
                 allProducts[ item ].timesShown ++;
             }
-            //   using indexOf, run loop to make sure that same image doesn't show up in next sequential page
-
         }
+
+//   make sure that same image doesn't appear in the next sequential page
         prevThree = selectedIndices;
         console.log('selected indices' + selectedIndices);
         console.log('previous 3' + prevThree);
@@ -98,7 +93,7 @@ var tracker = {
 
     displayOptions: function () {
         console.log('you\'re getting 3 random images');
-        // get 3 random product images
+// get 3 random product images
         var randomProducts = this.getIndices(allProducts);
         var index1 = randomProducts[0];
         var index2 = randomProducts[1];
@@ -108,7 +103,7 @@ var tracker = {
         var products2 = allProducts[index2];
         var products3 = allProducts[index3];
 
-        // append to the DOM
+// append to the DOM
         this.display1.innerText = products1.name;
         this.display2.innerText = products2.name;
         this.display3.innerText = products3.name;
@@ -119,15 +114,12 @@ var tracker = {
         this.display2.src = products2.filepath;
         this.display3.id = products3.id;
         this.display3.src = products3.filepath;
-
-
     },
 
     tallyVote: function (id) {
         this.votes += 1;
 
-
-        //  run a 'for each' loop and show results
+//  adding the number of votes (clicks) for each product
         allProducts.forEach(function runEach(product) {
             if (product.id === id) {
                 console.log(product.id + ' what is this doing');
@@ -140,12 +132,12 @@ var tracker = {
         }
     },
 
-    //   show results after user selects (clicks) 25 items
+//   show results after user selects (clicks) 25 items
     showResults: function () {
         this.imageDisplay.removeEventListener('click', voteHandler);
         console.table(allProducts);
-//   write a for loop to create and array of the data to go inside table
 
+//   push the data to table (number of times each product has been chosen by users)
         var resultData = [];
         var labels = [];
         for (var j = 0; j < allProducts.length; j++) {
@@ -155,6 +147,7 @@ var tracker = {
             console.log(labels + ' id working');
         }
 
+//   this adds the chart of results, via Canvas
         var canvas = document.getElementById('resultsChart');
             console.log(canvas);
         var itemChosen = new Chart (canvas, {
@@ -164,13 +157,13 @@ var tracker = {
                 datasets: [{
                     label: '# of Votes',
                     data: resultData,
-                    backgroundColor: 'rgba (255, 99, 132, 0.2)'
-                }]
+                    backgroundColor: 'rgba(56, 168, 50, 1)',
+                }],
             },
             options: {
                 title: {
                     display: true,
-                    text: '\"Products of Interest\" Results'
+                    text: '\"Products of Interest\" Results',
                 },
                 responsive: false,
                 maintainAspectRatio: true
