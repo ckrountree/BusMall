@@ -144,7 +144,36 @@ var tracker = {
     showResults: function () {
         this.imageDisplay.removeEventListener('click', voteHandler);
         console.table(allProducts);
+//   write a for loop to create and array of the data to go inside table
 
+        var resultData = [];
+        var labels = [];
+        for (var j = 0; j < allProducts.length; j++) {
+            resultData.push(allProducts[j].votes);
+            console.log(resultData + ' votes working');
+            labels.push(allProducts[j].id);
+            console.log(labels + ' id working');
+        }
+
+        var canvas = document.getElementById('resultsChart');
+            console.log(canvas);
+        var itemChosen = new Chart (canvas, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: resultData,
+                    backgroundColor: 'rgba (255, 99, 132, 0.2)'
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: '\"Products of Interest\" Result'
+                }
+            }
+        })
 
     }
 
@@ -166,4 +195,5 @@ function voteHandler() {
 instantiateProducts();
 tracker.displayOptions();
 console.log(tracker);
+
 
