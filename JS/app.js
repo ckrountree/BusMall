@@ -21,6 +21,10 @@ function Products(name, id, filepath) {
 
 //   create new objects with name, id, and filepath
 function instantiateProducts() {
+    if(localStorage.voteData) {
+       allProducts = JSON.parse(localStorage.getItem('voteData'));
+//  storing previous data (voteData) in localStorage
+    }  else {
     var bag = new Products('R2-D2 Travel Case', 'r2d2-case', './images/bag.jpg');
     var banana = new Products('Banana Slicer', 'banana-slicer', './images/banana.jpg');
     var tpHolder = new Products('iPad Toilet Paper Holder', 'tpHolder', './images/bathroom.jpg');
@@ -41,6 +45,7 @@ function instantiateProducts() {
     var usb = new Products('Tentacle USB', 'octaUsb', './images/usb.gif');
     var waterCan = new Products('Self-Watering Water Can', 'selfWater', './images/water-can.jpg');
     var wine = new Products('Big Dribble Wine Glass', 'wineGlass', './images/wine-glass.jpg');
+    };
 }
 
 // var imageDisplay = document.getElementById('imageDisplay');
@@ -175,13 +180,20 @@ var tracker = {
 }
 
 //   add an Event handler
-
 tracker.imageDisplay.addEventListener('click', voteHandler);
 function voteHandler() {
     if (event.target.id) {
         tracker.tallyVote(event.target.id);
         tracker.displayOptions();
     }
+
+//  TODO store submissions in LocalStorage so I can refresh or close the page and not lose my results
+localStorage.setItem('voteData', JSON.stringify(allProducts));
+
+//  below is same expression, different method:
+// localStorage.voteData = allProducts
+
+
 }
 
 
