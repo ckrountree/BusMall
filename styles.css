@@ -14,6 +14,10 @@ h2 {
     background-color: rgb(146, 209, 139);
 }
 
+#imageDisplay {
+    margin-left: 150px;
+}
+
 div {
     font-family: 'PT Sans Narrow', sans-serif;
     background-color: rgb(71, 113, 134);
