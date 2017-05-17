@@ -135,7 +135,7 @@ var tracker = {
             }
         });
 
-        if (this.votes > 5) {
+        if (this.votes > 24) {
             this.showResults();
         }
     },

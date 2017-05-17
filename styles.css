@@ -16,11 +16,12 @@ h2 {
 
 div {
     font-family: 'PT Sans Narrow', sans-serif;
-    color: rgb(71, 113, 134);
+    background-color: rgb(71, 113, 134);
 }
 
 p {
     text-align: center;
+    color: white;
 }
 
 
