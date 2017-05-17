@@ -14,13 +14,24 @@ h2 {
     background-color: rgb(146, 209, 139);
 }
 
+#imageDisplay {
+    margin-left: 150px;
+}
+
 div {
     font-family: 'PT Sans Narrow', sans-serif;
-    color: rgb(71, 113, 134);
+    background-color: rgb(71, 113, 134);
 }
 
 p {
     text-align: center;
+    color: white;
+    font-size: 20px;
+}
+
+#resultsChart {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
