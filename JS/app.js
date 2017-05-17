@@ -170,7 +170,7 @@ var tracker = {
             options: {
                 title: {
                     display: true,
-                    text: '\"Products of Interest\" Result'
+                    text: '\"Products of Interest\" Results'
                 }
             }
         })
