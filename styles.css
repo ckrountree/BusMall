@@ -28,4 +28,9 @@ p {
     color: white;
 }
 
+#resultsChart {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 

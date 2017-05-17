@@ -171,7 +171,9 @@ var tracker = {
                 title: {
                     display: true,
                     text: '\"Products of Interest\" Results'
-                }
+                },
+                responsive: false,
+                maintainAspectRatio: true
             }
         })
 
