@@ -61,7 +61,7 @@ var tracker = {
     button2: document.getElementsByClassName('button2')[0],
     button3: document.getElementsByClassName('button3')[0],
     imageDisplay: document.getElementById('imageDisplay'),
-    votes: 0,
+    votes: JSON.parse (localStorage.getItem ('currentVote')) || 0,
 
 //   create a function to select my random image
     randomIndex: function (array) {
@@ -125,7 +125,7 @@ var tracker = {
             }
         });
 
-        if (this.votes > 3) {
+        if (this.votes > 5) {
             this.showResults();
         }
     },
