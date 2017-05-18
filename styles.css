@@ -1,21 +1,39 @@
 #headers {
     font-family: 'Anton', sans-serif;
-    color: darkblue;
     text-align: center;
 
 }
 h1 {
     font-size: 50px;
-    background-color: rgb(95, 174, 87);
+    color: white;
+    background-color: rgba(56, 168, 50, 1);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
 
 h2 {
     font-size: 30px;
-    background-color: rgb(146, 209, 139);
+    color: white;
+    background-color: rgb(71, 113, 134);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    -webkit-text-stroke-width: 0.5px;
+   -webkit-text-stroke-color: black;
 }
 
 #imageDisplay {
     margin-left: 150px;
+}
+
+button {
+    display: block;
+    color: rgb(37, 81, 94);
+    border: 2px rgb(95, 174, 87)d solid;
+    height: 25px;
+    width: 70px;
+    border-radius: 7px;
 }
 
 div {
