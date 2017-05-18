@@ -1,9 +1,7 @@
 'use strict';
-console.log(Chart);
 
 // create an array for all Productss to be shown to Focus Group
 var allProducts = [];
-console.log('is this working');
 // var selectedIndices = [];
 var prevThree = [];
 
@@ -76,8 +74,6 @@ var tracker = {
         var selectedIndices = [];
         while (selectedIndices.length < 3) {
             var item = this.randomIndex(array);
-            console.log('while loop working', item);
-
 
 //   make sure that same image doesn't show up more than once in one round of display (-1 means image already used)
             if (selectedIndices.indexOf(item) === -1 && prevThree.indexOf(item) === -1) {
@@ -90,14 +86,10 @@ var tracker = {
 
 //   make sure that same image doesn't appear in the next sequential page
         prevThree = selectedIndices;
-        console.log('selected indices' + selectedIndices);
-        console.log('previous 3' + prevThree);
         return selectedIndices;
-
     },
 
     displayOptions: function () {
-        console.log('you\'re getting 3 random images');
 // get 3 random product images
         var randomProducts = this.getIndices(allProducts);
         var index1 = randomProducts[0];
@@ -127,12 +119,11 @@ var tracker = {
 //  adding the number of votes (clicks) for each product
         allProducts.forEach(function runEach(product) {
             if (product.id === id) {
-                console.log(product.id + ' what is this doing');
                 product.votes += 1;
             }
         });
 
-        if (this.votes > 24) {
+        if (this.votes > 3) {
             this.showResults();
         }
     },
@@ -147,14 +138,11 @@ var tracker = {
         var labels = [];
         for (var j = 0; j < allProducts.length; j++) {
             resultData.push(allProducts[j].votes);
-            console.log(resultData + ' votes working');
             labels.push(allProducts[j].id);
-            console.log(labels + ' id working');
         }
 
 //   this adds the chart of results, via Canvas
         var canvas = document.getElementById('resultsChart');
-            console.log(canvas);
         var itemChosen = new Chart (canvas, {
             type: 'bar',
             data: {
