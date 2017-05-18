@@ -14,7 +14,6 @@ function Products(name, id, filepath) {
     this.votes = 0;
 
     allProducts.push(this);
-
 }
 
 //   create new objects with name, id, and filepath
@@ -49,16 +48,18 @@ function instantiateProducts() {
 // var imageDisplay = document.getElementById('imageDisplay');
 // var src = imageDisplay.getAttribute('src');
 
-// shows the value of image for the element with id="imageDisplay"
-// alert(image); 
-//   create functions for tracking Display & Voting while on the page
-//   only want to display 3 images at any given moment
-//   begin voting count at zero (0)
+//  shows the value of image for the element with id="imageDisplay"
+//  create functions for tracking Display & Voting while on the page
+//  only want to display 3 images at any given moment
+//  begin voting count at zero (0)
 
 var tracker = {
     display1: document.getElementsByClassName('display1')[0],
     display2: document.getElementsByClassName('display2')[0],
     display3: document.getElementsByClassName('display3')[0],
+    button1: document.getElementsByClassName('button1')[0],
+    button2: document.getElementsByClassName('button2')[0],
+    button3: document.getElementsByClassName('button3')[0],
     imageDisplay: document.getElementById('imageDisplay'),
     votes: 0,
 
@@ -101,16 +102,17 @@ var tracker = {
         var products3 = allProducts[index3];
 
 // append to the DOM
-        this.display1.innerText = products1.name;
-        this.display2.innerText = products2.name;
-        this.display3.innerText = products3.name;
-
         this.display1.id = products1.id;
         this.display1.src = products1.filepath;
+        this.button1.id = products1.id;
+
         this.display2.id = products2.id;
         this.display2.src = products2.filepath;
+        this.button2.id = products2.id;
+
         this.display3.id = products3.id;
         this.display3.src = products3.filepath;
+        this.button3.id = products3.id;
     },
 
     tallyVote: function (id) {
@@ -162,9 +164,7 @@ var tracker = {
                 maintainAspectRatio: true
             }
         })
-
     }
-
 }
 
 //   add an Event handler
@@ -181,12 +181,9 @@ localStorage.setItem('voteData', JSON.stringify(allProducts));
 //  below is same expression, different method:
 // localStorage.voteData = allProducts
 
-
 }
 
-
 //  initialize app / call 
-
 instantiateProducts();
 tracker.displayOptions();
 console.log(tracker);
