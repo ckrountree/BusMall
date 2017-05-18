@@ -170,6 +170,7 @@ var tracker = {
 //   add an Event handler
 tracker.imageDisplay.addEventListener('click', voteHandler);
 function voteHandler() {
+    console.log(event);
     if (event.target.id) {
         tracker.tallyVote(event.target.id);
         tracker.displayOptions();
