@@ -1,9 +1,7 @@
 'use strict';
-console.log(Chart);
 
 // create an array for all Productss to be shown to Focus Group
 var allProducts = [];
-console.log('is this working');
 // var selectedIndices = [];
 var prevThree = [];
 
@@ -16,7 +14,6 @@ function Products(name, id, filepath) {
     this.votes = 0;
 
     allProducts.push(this);
-
 }
 
 //   create new objects with name, id, and filepath
@@ -51,18 +48,20 @@ function instantiateProducts() {
 // var imageDisplay = document.getElementById('imageDisplay');
 // var src = imageDisplay.getAttribute('src');
 
-// shows the value of image for the element with id="imageDisplay"
-// alert(image); 
-//   create functions for tracking Display & Voting while on the page
-//   only want to display 3 images at any given moment
-//   begin voting count at zero (0)
+//  shows the value of image for the element with id="imageDisplay"
+//  create functions for tracking Display & Voting while on the page
+//  only want to display 3 images at any given moment
+//  begin voting count at zero (0)
 
 var tracker = {
     display1: document.getElementsByClassName('display1')[0],
     display2: document.getElementsByClassName('display2')[0],
     display3: document.getElementsByClassName('display3')[0],
+    button1: document.getElementsByClassName('button1')[0],
+    button2: document.getElementsByClassName('button2')[0],
+    button3: document.getElementsByClassName('button3')[0],
     imageDisplay: document.getElementById('imageDisplay'),
-    votes: 0,
+    votes: JSON.parse (localStorage.getItem ('currentVote')) || 0,
 
 //   create a function to select my random image
     randomIndex: function (array) {
@@ -76,8 +75,6 @@ var tracker = {
         var selectedIndices = [];
         while (selectedIndices.length < 3) {
             var item = this.randomIndex(array);
-            console.log('while loop working', item);
-
 
 //   make sure that same image doesn't show up more than once in one round of display (-1 means image already used)
             if (selectedIndices.indexOf(item) === -1 && prevThree.indexOf(item) === -1) {
@@ -90,14 +87,10 @@ var tracker = {
 
 //   make sure that same image doesn't appear in the next sequential page
         prevThree = selectedIndices;
-        console.log('selected indices' + selectedIndices);
-        console.log('previous 3' + prevThree);
         return selectedIndices;
-
     },
 
     displayOptions: function () {
-        console.log('you\'re getting 3 random images');
 // get 3 random product images
         var randomProducts = this.getIndices(allProducts);
         var index1 = randomProducts[0];
@@ -109,16 +102,17 @@ var tracker = {
         var products3 = allProducts[index3];
 
 // append to the DOM
-        this.display1.innerText = products1.name;
-        this.display2.innerText = products2.name;
-        this.display3.innerText = products3.name;
-
         this.display1.id = products1.id;
         this.display1.src = products1.filepath;
+        this.button1.id = products1.id;
+
         this.display2.id = products2.id;
         this.display2.src = products2.filepath;
+        this.button2.id = products2.id;
+
         this.display3.id = products3.id;
         this.display3.src = products3.filepath;
+        this.button3.id = products3.id;
     },
 
     tallyVote: function (id) {
@@ -127,12 +121,11 @@ var tracker = {
 //  adding the number of votes (clicks) for each product
         allProducts.forEach(function runEach(product) {
             if (product.id === id) {
-                console.log(product.id + ' what is this doing');
                 product.votes += 1;
             }
         });
 
-        if (this.votes > 24) {
+        if (this.votes > 5) {
             this.showResults();
         }
     },
@@ -147,14 +140,11 @@ var tracker = {
         var labels = [];
         for (var j = 0; j < allProducts.length; j++) {
             resultData.push(allProducts[j].votes);
-            console.log(resultData + ' votes working');
             labels.push(allProducts[j].id);
-            console.log(labels + ' id working');
         }
 
 //   this adds the chart of results, via Canvas
         var canvas = document.getElementById('resultsChart');
-            console.log(canvas);
         var itemChosen = new Chart (canvas, {
             type: 'bar',
             data: {
@@ -174,14 +164,13 @@ var tracker = {
                 maintainAspectRatio: true
             }
         })
-
     }
-
 }
 
 //   add an Event handler
 tracker.imageDisplay.addEventListener('click', voteHandler);
 function voteHandler() {
+    console.log(event);
     if (event.target.id) {
         tracker.tallyVote(event.target.id);
         tracker.displayOptions();
@@ -193,12 +182,9 @@ localStorage.setItem('voteData', JSON.stringify(allProducts));
 //  below is same expression, different method:
 // localStorage.voteData = allProducts
 
-
 }
 
-
 //  initialize app / call 
-
 instantiateProducts();
 tracker.displayOptions();
 console.log(tracker);
