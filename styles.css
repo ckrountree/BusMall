@@ -21,6 +21,28 @@ h2 {
     padding-bottom: 20px;
     -webkit-text-stroke-width: 0.5px;
     -webkit-text-stroke-color: black;
+    animation: blink 2s ease 0s infinite alternate;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+        color: black;
+        font-size: 1.5em;
+
+    }
+    50% {
+        color: white;
+        font-size: 2em;
+
+    }
+
+    100% {
+        opacity: 1;
+        color: green;
+        font-size: 1.5em;
+
+    }
 }
 
 #imageDisplay {
